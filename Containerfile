@@ -36,4 +36,5 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
     CMD nc -u -z localhost 5520 || exit 1
 
 COPY entrypoint.sh /entrypoint.sh
+RUN chmod a+wrx /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
