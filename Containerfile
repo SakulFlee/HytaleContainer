@@ -9,7 +9,7 @@ RUN apt-get update && apt-get install -y \
 
 # Create user
 RUN groupadd -g 1000 hytale && \
-    useradd -u 100 -g hytale -m -s /bin/bash hytale
+    useradd -u 1000 -g hytale -m -s /bin/bash hytale
 
 # Create directories
 RUN mkdir -p /opt/hytale /opt/hytale-downloader && \
