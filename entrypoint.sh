@@ -25,7 +25,7 @@ if [[ $UPDATE_REQUIRED -eq 1 ]]; then
   echo "Update required!"
 
   # Will download the server ZIP file
-  pushd /opt/hytale-downlader
+  pushd /opt/hytale-downloader
   exec hytale-downloader-linux-amd64
 
   # Find ZIP file
