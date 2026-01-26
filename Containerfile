@@ -31,9 +31,5 @@ WORKDIR /opt/hytale
 # Expose game port
 EXPOSE 5520/udp
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
-    CMD nc -u -z localhost 5520 || exit 1
-
 COPY --chown=hytale:hytale --chmod=755 entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
