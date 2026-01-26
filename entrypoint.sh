@@ -26,7 +26,7 @@ if [[ $UPDATE_REQUIRED -eq 1 ]]; then
 
   # Will download the server ZIP file
   pushd /opt/hytale-downloader
-  exec hytale-downloader-linux-amd64
+  exec hytale-downloader-linux-amd64 -credentials-path /opt/hytale/.hytale-downloader-credentials.json
 
   # Find ZIP file
   ZIP_FILE="$(find . -type f -name '*.zip' -exec basename {} \;)"
