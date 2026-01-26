@@ -4,11 +4,24 @@ echo "--- Hytale Server Launcher ---"
 echo "Java Options: $JAVA_OPTIONS"
 
 # Below will be empty if file doesn't exist
-CURRENT_VERSION="$(cat /opt/hytale/VERSION)"
-NEW_VERSION="$(/opt/hytale-downloader/hytale-downloader -print-version)"
+UPDATE_REQUIRED=0
+if [ -f /opt/hytale/VERSION ]; then
+  echo "Existing version tag found! Checking for updates ..."
 
-diff <(echo "$CURRENT_VERSION") <(echo "$NEW_VERSION")
-if [[ $? -eq 1 ]]; then
+  CURRENT_VERSION="$(cat /opt/hytale/VERSION)"
+  echo "Current version: $CURRENT_VERSION"
+
+  LATEST_VERSION="$(/opt/hytale-downloader/hytale-downloader -print-version)"
+  echo "Latest version: $LATEST_VERSION"
+
+  diff <(echo "$CURRENT_VERSION") <(echo "$LATEST_VERSION")
+  UPDATE_REQUIRED=$?
+else
+  echo "No version tag found! Assuming first run."
+  UPDATE_REQUIRED=1
+fi
+
+if [[ $UPDATE_REQUIRED -eq 1 ]]; then
   echo "Update required!"
 
   # Will download the server ZIP file
@@ -25,12 +38,19 @@ if [[ $? -eq 1 ]]; then
   echo "$ZIP_FILE" > /opt/hytale/VERSION
 
   popd
+else
+  echo "Update not required!"
 fi
 
-# Run server
-pushd /opt/hytale/Server
-exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar /opt/hytale/Server/HytaleServer.jar --assets /opt/hytale/Assets.zip
-pod
+if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
+  echo "Something went wrong, the required server files were not found!"
+  exit -1
+else
+  # Run server
+  pushd /opt/hytale/Server
+  exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar /opt/hytale/Server/HytaleServer.jar --assets /opt/hytale/Assets.zip
+  pod
+fi
 
 echo "--- Exiting ---"
 
