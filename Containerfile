@@ -1,4 +1,4 @@
-FROM debian-slim:trixie
+FROM quay.io/lib/debian:trixie-slim
 
 # Install dependencies
 RUN apt-get update && apt-get install -y \
