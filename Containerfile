@@ -35,6 +35,9 @@ EXPOSE 5520/udp
 HEALTHCHECK --interval=30s --timeout=10s --start-period=300s --retries=3 \
     CMD nc -u -z localhost 5520 || exit 1
 
+USER root
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod a+wrx /entrypoint.sh
+
+USER hytale
 ENTRYPOINT ["/entrypoint.sh"]
