@@ -52,7 +52,7 @@ if [[ $UPDATE_REQUIRED -eq 1 ]]; then
   check_status
 
   # Version tag server
-  echo "$ZIP_FILE" > /opt/hytale/VERSION
+  echo "${ZIP_FILE%.zip}" > /opt/hytale/VERSION
 
   # Remove download to save space
   rm "$ZIP_FILE"
