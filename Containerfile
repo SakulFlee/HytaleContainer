@@ -13,6 +13,9 @@ RUN apt-get update \
 RUN groupadd -g 1000 hytale && \
     useradd -u 1000 -g hytale -m -s /bin/bash hytale
 
+# Create EMPTY machine-id
+RUN touch /etc/machine-id && chown 1000:1000 /etc/machine-id
+
 # Create directories
 RUN mkdir -p /opt/hytale /opt/hytale-downloader && \
     chown -R hytale:hytale /opt/hytale /opt/hytale-downloader

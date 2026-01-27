@@ -10,6 +10,15 @@ check_status() {
 echo "--- Hytale Server Launcher ---"
 echo "Java Options: $JAVA_OPTIONS"
 
+if [ ! -f /opt/hytale/.machine-id ]; then
+  echo "No machine id found! Generating one ..."
+
+  cat /proc/sys/kernel/random/uuid | tr -d '-' > /opt/hytale/.machine-id
+fi
+
+echo "Updating machine id ..."
+cat /opt/hytale/.machine-id | tee /etc/machine-id
+
 # Below will be empty if file doesn't exist
 UPDATE_REQUIRED=0
 if [ -f /opt/hytale/VERSION ]; then
