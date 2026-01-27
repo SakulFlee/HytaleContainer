@@ -10,15 +10,6 @@ check_status() {
 echo "--- Hytale Server Launcher ---"
 echo "Java Options: $JAVA_OPTIONS"
 
-if [ ! -f /etc/machine-id ]; then
-  echo "No hardware ID found! Generating one ..."
-  dbus-uuidgen > /etc/machine-id 
-  check_status
-
-  ln -sf /etc/machine-id /var/lib/dbus/machine-id
-  check_status
-fi
-
 # Below will be empty if file doesn't exist
 UPDATE_REQUIRED=0
 if [ -f /opt/hytale/VERSION ]; then
