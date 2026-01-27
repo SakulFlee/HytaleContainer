@@ -1,5 +1,12 @@
 #!/usr/bin/env bash
 
+check_status() {
+  if [ $? -ne 0 ]; then
+    echo "Something went wrong!"
+    exit -1
+  fi
+}
+
 echo "--- Hytale Server Launcher ---"
 echo "Java Options: $JAVA_OPTIONS"
 
