@@ -64,6 +64,9 @@ if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
   echo "Something went wrong, the required server files were not found!"
   exit -1
 else
+  # Mark ready for probes
+  touch /opt/hytale/.ready
+
   # Run server
   cd /opt/hytale/Server
   exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar HytaleServer.jar --assets ../Assets.zip
