@@ -4,7 +4,7 @@ FROM docker.io/debian:trixie-slim
 RUN apt-get update && apt-get install -y \
     curl \
     unzip \
-    openjdk-21-jre-headless \
+    temurin-25-jre \
     && rm -rf /var/lib/apt/lists/*
 
 # Create user
