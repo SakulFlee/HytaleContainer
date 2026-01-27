@@ -65,7 +65,7 @@ if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
   exit -1
 else
   # Mark ready for probes
-  touch /opt/hytale/.ready
+  touch /tmp/.ready
 
   # Run server
   cd /opt/hytale/Server
