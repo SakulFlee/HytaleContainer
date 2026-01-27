@@ -66,7 +66,7 @@ if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
 else
   # Run server
   cd /opt/hytale/Server
-  exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar HytaleServer.jar --assets Assets.zip
+  exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar HytaleServer.jar --assets ../Assets.zip
   check_status
 fi
 
