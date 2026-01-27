@@ -1,10 +1,10 @@
 #!/usr/bin/groovy
 
 def registry = 'forgejo.sakul-flee.de'
-def namespace = 'container'
+def namespace = 'containers'
 def name = 'hytale'
 
-def full = "${registry}/${namespace}/${name}"
+def target = "docker://${registry}/${namespace}/${name}"
 
 pipeline {
   agent {
@@ -56,7 +56,7 @@ pipeline {
       steps {
         container('buildah') {
           sh """
-            buildah push --retry 10 \"${name}\" \"docker://${full}:latest"
+            buildah push --retry 10 \"${name}\" \"${target}:latest"
           """
         }
       }
