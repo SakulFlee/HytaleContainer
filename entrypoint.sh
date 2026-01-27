@@ -26,25 +26,36 @@ if [ -f /opt/hytale/VERSION ]; then
 else
   echo "No version tag found! Assuming first run."
   UPDATE_REQUIRED=1
+
+  mkdir -p /opt/hytale
+fi
+
+if [ -f /opt/hytale-downloader-secret/.hytale-downloader-credentials.json ]; then
+  echo "Kubernetes credentials found! Copying ..."
+  cp -f /opt/hytale-downloader-secret/.hytale-downloader-credentials.json /opt/hytale/.hytale-downloader-credentials.json
 fi
 
 if [[ $UPDATE_REQUIRED -eq 1 ]]; then
   echo "Update required!"
 
   # Will download the server ZIP file
-  pushd /opt/hytale-downloader
-  exec ./hytale-downloader-linux-amd64 -credentials-path /opt/hytale/.hytale-downloader-credentials.json
+  cd /opt/hytale-downloader
+  ./hytale-downloader-linux-amd64 -credentials-path /opt/hytale/.hytale-downloader-credentials.json
+  check_status
 
   # Find ZIP file
   ZIP_FILE="$(find . -type f -name '*.zip' -exec basename {} \;)"
+  check_status
 
   # Extract server ZIP 
   unzip -d /opt/hytale -o $ZIP_FILE
+  check_status
 
   # Version tag server
   echo "$ZIP_FILE" > /opt/hytale/VERSION
 
-  popd
+  # Remove download to save space
+  rm "$ZIP_FILE"
 else
   echo "Update not required!"
 fi
@@ -54,9 +65,9 @@ if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
   exit -1
 else
   # Run server
-  pushd /opt/hytale/Server
-  exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar /opt/hytale/Server/HytaleServer.jar --assets /opt/hytale/Assets.zip
-  pod
+  cd /opt/hytale/Server
+  exec java -XX:AOTCache=HytaleServer.aot $JAVA_OPTIONS -jar HytaleServer.jar --assets Assets.zip
+  check_status
 fi
 
 echo "--- Exiting ---"
