@@ -53,10 +53,14 @@ pipeline {
     }
 
     stage('Push') {
+      when {
+        buildingTag()
+      }
       steps {
         container('buildah') {
           sh """
-            buildah push --retry 10 \"${name}\" \"${target}:latest"
+            buildah push --retry 10 "${name}" "${target}:${env.TAG_NAME}"
+            buildah push --retry 10 "${name}" "${target}:latest"
           """
         }
       }
