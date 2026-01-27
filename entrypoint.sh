@@ -18,7 +18,7 @@ if [ -f /opt/hytale/VERSION ]; then
   CURRENT_VERSION="$(cat /opt/hytale/VERSION)"
   echo "Current version: $CURRENT_VERSION"
 
-  LATEST_VERSION="$(/opt/hytale-downloader/hytale-downloader -print-version)"
+  LATEST_VERSION="$(/opt/hytale-downloader/hytale-downloader-linux-amd64 -print-version)"
   echo "Latest version: $LATEST_VERSION"
 
   diff <(echo "$CURRENT_VERSION") <(echo "$LATEST_VERSION")
