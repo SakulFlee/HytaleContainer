@@ -52,16 +52,25 @@ pipeline {
       }
     }
 
-    stage('Push') {
+    stage('Push @Dev') {
       steps {
         container('buildah') {
           sh """
-            if [ -n "${env.TAG_NAME}" ]; then
-              buildah push --retry 10 "${name}" "${target}:${env.TAG_NAME}"
-              buildah push --retry 10 "${name}" "${target}:latest"
-            fi
-
             buildah push --retry 10 "${name}" "${target}:dev"
+          """
+        }
+      }
+    }
+
+    stage('Push @Release') {
+      when {
+        buildingTag()
+      }
+      steps {
+        container('buildah') {
+          sh """
+            buildah push --retry 10 "${name}" "${target}:${env.TAG_NAME}"
+            buildah push --retry 10 "${name}" "${target}:latest"
           """
         }
       }
