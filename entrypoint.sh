@@ -49,7 +49,7 @@ if [[ $UPDATE_REQUIRED -eq 1 ]]; then
 
   # Will download the server ZIP file
   cd /opt/hytale-downloader
-  ./hytale-downloader-linux-amd64 -credentials-path /opt/hytale/.hytale-downloader-credentials.json
+  stdbuf -oL -eL ./hytale-downloader-linux-amd64 -credentials-path /opt/hytale/.hytale-downloader-credentials.json
   check_status
 
   # Find ZIP file
