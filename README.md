@@ -2,9 +2,8 @@
 
 # 📦 Hytale Container Image
 
-
-![](https://img.shields.io/badge/Forgejo-Origin-orange?style=for-the-badge&logo=forgejo&logoSize=auto&link=https%3A%2F%2Fforgejo.sakul-flee.de%2FContainers%2FHytale%2F)
-![](https://img.shields.io/badge/GitHub-Mirror-blue?style=for-the-badge&logo=github&logoSize=auto&link=https%3A%2F%2Fgithub.com%2FSakulFlee%2FHytaleContainer)
+[![Origin: Forgejo](https://img.shields.io/badge/Forgejo-Origin-orange?style=for-the-badge&logo=forgejo&logoSize=auto)](https://forgejo.sakul-flee.de/Containers/Hytale/)
+[![Mirror: GitHub](https://img.shields.io/badge/GitHub-Mirror-blue?style=for-the-badge&logo=github&logoSize=auto)](https://github.com/SakulFlee/HytaleContainer/)
 
 A feature rich Container image for running Hytale servers!
 
