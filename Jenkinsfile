@@ -52,17 +52,7 @@ pipeline {
       }
     }
 
-    stage('Push @Dev') {
-      steps {
-        container('buildah') {
-          sh """
-            buildah push --retry 10 "${name}" "${target}:dev"
-          """
-        }
-      }
-    }
-
-    stage('Push @Release') {
+    stage('Push') {
       when {
         buildingTag()
       }
