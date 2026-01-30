@@ -8,7 +8,26 @@ check_status() {
 }
 
 echo "--- Hytale Server Launcher ---"
-echo "Java Options: $JAVA_OPTIONS"
+if [ -z "$JAVA_OPTIONS" ]; then
+  echo "Java Options: None"
+else
+  echo "Java Options: $JAVA_OPTIONS"
+fi
+
+if [ -z "$MODS" ]; then
+  echo "Mods: None"
+else
+  echo "Mods:"
+  for mod in $MODS; do
+    echo " - $mod"
+  done
+fi
+
+if [ "$CLEAR_MODS" == "Enabled" ]; then
+  echo "Clear mods: Enabled (all mod files will be removed!)"
+else
+  echo "Clear mods: Disabled"
+fi
 
 if [ ! -f /opt/hytale/.machine-id ]; then
   echo "No machine id found! Generating one ..."
@@ -67,6 +86,26 @@ if [[ $UPDATE_REQUIRED -eq 1 ]]; then
   rm "$ZIP_FILE"
 else
   echo "Update not required!"
+fi
+
+if [ "$CLEAR_MODS" == "Enabled" ]; then
+  cd /opt/hytale/Server/mods
+
+  echo "Clear mods is enabled ... all mod files will be removed!"
+  rm -f *.jar *.zip
+fi
+
+if [ ! -z "$MODS" ]; then
+  cd /opt/hytale/Server/mods
+
+  echo "Mods will be downloaded!"
+  for mod in $MODS; do
+    echo "Downloading '$mod' ..."
+    curl -LO "$mod"
+    if [ $? -ne 0 ]; then
+      echo "Something went wrong while downloading mods. Continuing anyways ..."
+    fi
+  done
 fi
 
 if [ ! -f /opt/hytale/Server/HytaleServer.jar ]; then
