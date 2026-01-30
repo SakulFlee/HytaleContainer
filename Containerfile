@@ -17,7 +17,7 @@ RUN groupadd -g 1000 hytale && \
 RUN touch /etc/machine-id && chown 1000:1000 /etc/machine-id
 
 # Create directories
-RUN mkdir -p /opt/hytale /opt/hytale-downloader && \
+RUN mkdir -p /opt/hytale /opt/hytale/mods /opt/hytale-downloader && \
     chown -R hytale:hytale /opt/hytale /opt/hytale-downloader
 
 # Download and setup Hytale downloader
@@ -29,6 +29,10 @@ RUN cd /opt/hytale-downloader && \
 
 # Switch to hytale user
 USER hytale
+
+# Auto-Install NYO Mod Manager
+RUN cd /opt/hytale/mods \
+ && curl -LO https://mediafilez.forgecdn.net/files/7544/509/NyoUpdates-2.0.1.jar
 
 # Set working directory
 WORKDIR /opt/hytale
