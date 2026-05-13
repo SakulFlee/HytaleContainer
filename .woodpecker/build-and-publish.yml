@@ -3,7 +3,7 @@ steps:
     image: woodpeckerci/plugin-kaniko
     settings:
       registry: forgejo.sakul-flee.de
-      repo: sakulflee/website
+      repo: sakulflee/hytalecontainer
       tags: 
         - ${CI_COMMIT_TAG:-latest}
         - ${CI_COMMIT_SHA:0:7}
