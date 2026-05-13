@@ -6,7 +6,6 @@ steps:
       repo: sakulflee/hytalecontainer
       tags: 
         - ${CI_COMMIT_TAG:-latest}
-        - ${CI_COMMIT_SHA:0:7}
       dockerfile: Containerfile
       username:
         from_secret: FORGEJO_USERNAME
